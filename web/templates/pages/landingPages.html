@@ -1,0 +1,82 @@
+{{ template "base" . }}
+{{ define "landing-content" }}
+<main>
+    <section class="hero">
+        <div class="hero-container">
+            
+            <!-- LEFT : IMAGE -->
+            <div class="hero-image">
+                <img
+                    src="/images/[Home] Aktivitas.avif"
+                    alt="TB illustration">
+            </div>
+
+            <!-- RIGHT : CONTENT -->
+            <div class="hero-content">
+
+                <h1>BOOCINS</h1>
+                <span class="hero-label" style="color: black;">Booking Cinema</span>
+                <span class="hero-label">Seats</span>
+                <p>
+                    Website pemesanan tiket bioskop untuk melihat film,
+                    jadwal tayang, rating, serta memilih dan memesan kursi dengan mudah.
+                </p>
+                <p>
+                    BOOCINS hadir dengan UI yang modern, simpel, dan mudah digunakan,
+                    sehingga memudahkan pengguna menemukan film bioskop pilihan.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn btn-primary">
+                        Mulai Sekarang
+                        <i class="uil uil-arrow-right"></i>
+                    </a>
+                    <a href="#guide" class="btn btn-secondary">Pelajari BOOCINS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GUIDE ==================== -->
+    <section class="guide" id="guide">
+        <div class="section-container">
+            <div class="section-heading">
+                <span>HOW IT WORKS</span>
+                <h2>Temukan film favoritmu dengan lebih mudah.</h2>
+                <p>
+                   BOOCINS dirancang untuk memberikan pengalaman pemesanan tiket bioskop yang praktis, mulai dari menemukan film hingga memilih kursi.
+                </p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="uil uil-check-circle"></i>
+                    <h3>Explore Movies</h3>
+                    <p>Lihat daftar film yang sedang tayang maupun film yang akan datang beserta informasi dan ratingnya.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="uil uil-trophy"></i>
+                    <h3>Check Schedule</h3>
+                    <p>Temukan jadwal tayang film sesuai waktu yang kamu inginkan.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="uil uil-wallet"></i>
+                    <h3>Book Your Seat</h3>
+                    <p>Pilih kursi favoritmu dan pesan tiket bioskop dengan mudah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-content">
+                <span>ABOUT THE CREATOR</span>
+                <h2>Dibuat untuk pengalaman menonton yang lebih mudah.</h2>
+                <p>
+                    BOOCINS dibuat sebagai sebuah project untuk menghadirkan pengalaman pemesanan tiket bioskop yang sederhana dan nyaman, sekaligus menjadi ruang untuk terus belajar dan berkembang dalam dunia backend development.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+{{ end }}
