@@ -15,7 +15,26 @@ func main() {
 		log.Fatal("Gagal Terhubung Kedalam Database")
 	}
 	err = db.Migrator().DropTable(
+		&entity.Role{},
+		&entity.Transaction{},
+		&entity.Film{},
+		&entity.Genre{},
+		&entity.Room{},
+
 		&entity.User{},
-		// tabel lainnya
+		&entity.Seat{},
+		&entity.Source{},
+
+		&entity.Genre{},
+		&entity.Comment{},
+		&entity.Bookmark{},
+		&entity.Schedule{},
+		&entity.ScheduleSeat{},
+
+		&entity.Ticket{},
 	)
+	if err != nil {
+		log.Fatal("Failed Rollback")
+	}
+	log.Println("Success Rollback")
 }

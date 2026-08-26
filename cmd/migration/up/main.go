@@ -14,7 +14,25 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed Connection Posgres")
 	}
-	err = db.AutoMigrate(&entity.User{})
+	err = db.AutoMigrate(
+		&entity.Role{},
+		&entity.Transaction{},
+		&entity.Film{},
+		&entity.Genre{},
+		&entity.Room{},
+
+		&entity.User{},
+		&entity.Seat{},
+		&entity.Source{},
+
+		&entity.Genre{},
+		&entity.Comment{},
+		&entity.Bookmark{},
+		&entity.Schedule{},
+		&entity.ScheduleSeat{},
+
+		&entity.Ticket{},
+	)
 	if err != nil {
 		log.Fatal("Failed Migration")
 	}
