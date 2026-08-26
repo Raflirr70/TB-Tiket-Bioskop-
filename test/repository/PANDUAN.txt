@@ -1,0 +1,45 @@
+TEST/REPOSITORY - REPOSITORY TESTS
+=====================================
+
+Folder ini berisi unit test untuk repository implementation.
+
+File yang harus dibuat:
+-----------------------
+1. user_repository_test.go
+   - Test untuk setiap method di UserRepositoryImpl.
+   - Bisa pakai test database atau mock database.
+   - Test CRUD operations.
+
+Contoh:
+--------
+package repository_test
+
+import (
+    "testing"
+    "github.com/stretchr/testify/assert"
+    "yourproject/internal/domain/entity"
+)
+
+func TestFindByID(t *testing.T) {
+    // Setup test database
+    db := setupTestDB()
+    repo := repository.NewUserRepository(db)
+    
+    // Create test data
+    user := &entity.User{Name: "Test", Email: "test@test.com"}
+    repo.Create(user)
+    
+    // Test
+    found, err := repo.FindByID(user.ID)
+    
+    assert.NoError(t, err)
+    assert.Equal(t, "Test", found.Name)
+}
+
+Panduan:
+--------
+- Gunakan test database (SQLite in-memory) untuk testing.
+- Bersihkan data setelah setiap test.
+- Test semua method: Find, Create, Update, Delete.
+- Test edge case: data tidak ditemukan, duplicate, dll.
+- Jalankan dengan: go test ./test/repository/...

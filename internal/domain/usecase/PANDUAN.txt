@@ -1,0 +1,36 @@
+INTERNAL/DOMAIN/USECASE - INTERFACE USECASE
+============================================
+
+Folder ini berisi interface UseCase yang didefinisikan oleh domain.
+
+File yang harus dibuat:
+-----------------------
+1. user_usecase.go
+   - Interface UserUseCase dengan method-method bisnis.
+
+2. (Sesuai feature lainnya)
+
+Contoh:
+--------
+package usecase
+
+import (
+    "yourproject/internal/domain/entity"
+)
+
+type UserUseCase interface {
+    GetUserByID(id int64) (*entity.User, error)
+    GetAllUsers(limit, offset int) ([]entity.User, int64, error)
+    CreateUser(user *entity.User) error
+    UpdateUser(user *entity.User) error
+    DeleteUser(id int64) error
+}
+
+Panduan:
+--------
+- Interface di domain, implementasi di internal/usecase/.
+- Method harus mencerminkan aksi bisnis, bukan aksi database.
+- UseCase adalah GATEWAY antara presentation (handler) dan data (repository).
+- Jangan import handler, middleware, atau delivery di sini.
+- Gunakan entity sebagai parameter dan return type.
+- Pertimbangkan DTO/Request-Response jika input/output berbeda dari entity.

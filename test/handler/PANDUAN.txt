@@ -1,0 +1,46 @@
+TEST/HANDLER - HANDLER TESTS
+==============================
+
+Folder ini berisi unit test untuk HTTP handler.
+
+File yang harus dibuat:
+-----------------------
+1. user_handler_test.go
+   - Test untuk setiap method di UserHandler.
+   - Menggunakan httptest untuk simulasi HTTP request.
+   - Mock usecase untuk testing.
+
+Contoh:
+--------
+package handler_test
+
+import (
+    "net/http"
+    "net/http/httptest"
+    "testing"
+    "github.com/gin-gonic/gin"
+    "github.com/stretchr/testify/assert"
+)
+
+func TestGetUser(t *testing.T) {
+    // Setup
+    gin.SetMode(gin.TestMode)
+    router := gin.New()
+    router.GET("/users/:id", handler.GetUser)
+    
+    // Request
+    w := httptest.NewRecorder()
+    req, _ := http.NewRequest("GET", "/users/1", nil)
+    router.ServeHTTP(w, req)
+    
+    // Assert
+    assert.Equal(t, 200, w.Code)
+}
+
+Panduan:
+--------
+- Gunakan package testing bawaan Go.
+- Gunakan testify untuk assert dan mock.
+- Test semua endpoint: success, error, validation.
+- Mock dependency (usecase/repository) agar test independent.
+- Jalankan dengan: go test ./test/handler/...

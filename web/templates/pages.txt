@@ -1,0 +1,51 @@
+TEMPLATES/PAGES - PAGE TEMPLATES
+==================================
+
+Folder ini berisi template HTML untuk setiap halaman.
+
+File yang harus dibuat (sesuai feature):
+-----------------------------------------
+1. index.html
+   - Halaman utama / dashboard.
+   - Menampilkan data utama aplikasi.
+
+2. login.html
+   - Halaman login form.
+
+3. register.html
+   - Halaman registrasi.
+
+4. user_list.html
+   - Halaman daftar semua users.
+
+5. user_detail.html
+   - Halaman detail satu user.
+
+6. 404.html
+   - Halaman not found.
+
+Contoh index.html (extend base):
+---------------------------------
+{{ define "content" }}
+<div class="page-header">
+    <h1>Dashboard</h1>
+</div>
+
+<div class="card-grid">
+    {{ range .Users }}
+    <div class="card">
+        <h3>{{ .Name }}</h3>
+        <p>{{ .Email }}</p>
+    </div>
+    {{ end }}
+</div>
+{{ end }}
+
+Panduan:
+--------
+- Setiap file harus extend base.html menggunakan {{ define "content" }}.
+- Data dari Go backend diakses dengan {{ .FieldName }}.
+- Loop data menggunakan {{ range .Items }}...{{ end }}.
+- Conditional: {{ if .IsLoggedIn }}...{{ end }}.
+- Naming file harus snake_case: user_list.html, not_found.html.
+- Pisahkan logic template dan static assets (jangan inline CSS/JS).

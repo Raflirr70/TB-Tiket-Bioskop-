@@ -1,0 +1,52 @@
+PKG/ERROR - CUSTOM ERROR HANDLING
+==================================
+
+Folder ini berisi custom error types dan error handling utilities.
+
+File yang harus dibuat:
+-----------------------
+1. errors.go
+   - Custom error types yang digunakan di seluruh aplikasi.
+   - Fungsi helper untuk membuat error.
+
+2. app_error.go
+   - AppError struct yang menggabungkan error message + status code.
+
+Contoh:
+--------
+package apperror
+
+import "errors"
+
+type AppError struct {
+    StatusCode int    `json:"status_code"`
+    Message    string `json:"message"`
+}
+
+func (e *AppError) Error() string {
+    return e.Message
+}
+
+func NewAppError(statusCode int, message string) *AppError {
+    return &AppError{
+        StatusCode: statusCode,
+        Message:    message,
+    }
+}
+
+// Predefined errors
+var (
+    ErrNotFound     = errors.New("data not found")
+    ErrUnauthorized = errors.New("unauthorized")
+    ErrForbidden    = errors.New("forbidden")
+    ErrBadRequest   = errors.New("bad request")
+    ErrInternal     = errors.New("internal server error")
+)
+
+Panduan:
+--------
+- Gunakan error wrapping: fmt.Errorf("operation failed: %w", err).
+- Sediakan predefined error untuk error yang sering muncul.
+- Pisahkan error bisnis dan error teknis.
+- Error harus informatif untuk debugging di production.
+- Gunakan errors.Is() dan errors.As() untuk cek error type.

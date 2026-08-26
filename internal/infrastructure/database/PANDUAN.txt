@@ -1,0 +1,43 @@
+INTERNAL/INFRASTRUCTURE/DATABASE - KONEKSI DATABASE
+====================================================
+
+Folder ini berisi inisialisasi dan koneksi database.
+
+File yang harus dibuat:
+-----------------------
+1. postgres.go (atau mysql.go, sqlite.go)
+   - Fungsi NewPostgres(cfg) untuk membuat koneksi database.
+   - Menggunakan GORM, database/sql, atau pgx.
+
+2. migration.go (opsional)
+   - Fungsi untuk menjalankan auto-migration GORM.
+
+Contoh:
+--------
+package database
+
+import (
+    "fmt"
+    "gorm.io/driver/postgres"
+    "gorm.io/gorm"
+)
+
+func NewPostgres(cfg *config.Config) *gorm.DB {
+    dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
+        cfg.DBHost, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.DBPort)
+    
+    db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+    if err != nil {
+        log.Fatal("Failed to connect to database:", err)
+    }
+    
+    return db
+}
+
+Panduan:
+--------
+- Fungsi di sini hanya untuk koneksi, bukan query.
+- Handle error dengan proper logging (jangan panic di production).
+- Sediakan fungsi Close() atau defer db.Close() di main.go.
+- Konfigurasi pool connection jika menggunakan GORM.
+- Jangan letakkan query SQL di sini, itu tugas repository impl.

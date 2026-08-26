@@ -1,0 +1,47 @@
+CMD/SERVER - ENTRY POINT APLIKASI
+===================================
+
+Folder ini berisi file main.go sebagai titik masuk (entry point) aplikasi.
+
+File yang harus dibuat:
+-----------------------
+1. main.go
+   - Fungsi main() sebagai starting point aplikasi.
+   - Bertanggung jawab untuk:
+     * Load konfigurasi (env / config file).
+     * Inisialisasi koneksi database.
+     * Inisialisasi repository, usecase, dan handler.
+     * Setup router dan menjalankan server.
+   - Dependency Injection dilakukan di sini.
+
+Contoh Struktur:
+----------------
+func main() {
+    // 1. Load config
+    cfg := config.Load()
+
+    // 2. Init database
+    db := database.NewPostgres(cfg)
+
+    // 3. Init repository
+    userRepo := repository.NewUserRepository(db)
+
+    // 4. Init usecase
+    userUC := usecase.NewUserUseCase(userRepo)
+
+    // 5. Init handler
+    userHandler := handler.NewUserHandler(userUC)
+
+    // 6. Setup router
+    router := router.NewRouter(userHandler)
+
+    // 7. Run server
+    router.Run(":" + cfg.ServerPort)
+}
+
+Panduan:
+--------
+- JANGAN letakkan logika bisnis di sini.
+- Tugasnya hanya wiring/inject dependencies.
+- Gunakan environment variable untuk konfigurasi (port, dsn, dll).
+- Pertimbangkan graceful shutdown untuk production.

@@ -1,0 +1,55 @@
+INTERNAL/DELIVERY/HTTP/HANDLER - HTTP HANDLER
+==============================================
+
+Folder ini berisi HTTP Handler (Controller) yang menangani request dari client.
+
+File yang harus dibuat:
+-----------------------
+1. user_handler.go
+   - Struct UserHandler dengan dependency UseCase.
+   - Method-method yang dipanggil oleh router (GetUser, CreateUser, dll).
+   - Parsing request body/params, memanggil usecase, return response.
+
+Contoh:
+--------
+package handler
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+    "yourproject/internal/domain/usecase"
+    "yourproject/pkg/response"
+)
+
+type UserHandler struct {
+    userUC usecase.UserUseCase
+}
+
+func NewUserHandler(userUC usecase.UserUseCase) *UserHandler {
+    return &UserHandler{userUC: userUC}
+}
+
+func (h *UserHandler) GetUser(c *gin.Context) {
+    id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+    if err != nil {
+        response.Error(c, http.StatusBadRequest, "Invalid ID")
+        return
+    }
+
+    user, err := h.userUC.GetUserByID(id)
+    if err != nil {
+        response.Error(c, http.StatusInternalServerError, err.Error())
+        return
+    }
+
+    response.Success(c, http.StatusOK, user)
+}
+
+Panduan:
+--------
+- Handler HANYA menerima request, memanggil usecase, return response.
+- JANGAN letakkan logika bisnis di handler.
+- Gunakan pkg/response untuk format response yang konsisten.
+- Validasi input di handler (panjang minimal, format, dll).
+- Gunakan strconv untuk parsing param, jangan biarkan error.
+- Return HTTP status code yang tepat (200, 201, 400, 404, 500).

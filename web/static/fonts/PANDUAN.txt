@@ -1,0 +1,30 @@
+STATIC/FONTS - CUSTOM FONTS
+==============================
+
+Folder ini berisi file font custom yang digunakan di aplikasi.
+
+Cara Penggunaan:
+-----------------
+1. Download font dari Google Fonts atau DaFont.
+2. Convert ke web format (WOFF2, WOFF, TTF) di fontsquirrel.com.
+3. Letakkan file font di folder ini.
+4. Import di CSS:
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('../fonts/CustomFont.woff2') format('woff2'),
+       url('../fonts/CustomFont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+Rekomendasi:
+-------------
+- Lebih baik gunakan Google Fonts via CDN daripada self-host.
+- Self-host lebih cepat dan privacy-friendly.
+- Format WOFF2 adalah yang paling ringan untuk web.
+- Jangan gunakan lebih dari 2-3 font family dalam satu project.
+
+Alternatif (Google Fonts CDN):
+------------------------------
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

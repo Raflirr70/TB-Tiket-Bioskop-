@@ -1,0 +1,35 @@
+INTERNAL/INFRASTRUCTURE/CACHE - KONEKSI CACHE
+===============================================
+
+Folder ini berisi inisialisasi koneksi Redis atau cache lainnya.
+
+File yang harus dibuat:
+-----------------------
+1. redis.go
+   - Fungsi NewRedis(cfg) untuk membuat koneksi Redis.
+   - Menggunakan package go-redis.
+
+Contoh:
+--------
+package cache
+
+import (
+    "github.com/go-redis/redis/v8"
+)
+
+func NewRedis(cfg *config.Config) *redis.Client {
+    client := redis.NewClient(&redis.Options{
+        Addr:     cfg.RedisAddr,
+        Password: cfg.RedisPassword,
+        DB:       0,
+    })
+    return client
+}
+
+Panduan:
+--------
+- Cache bersifat optional, gunakan jika diperlukan.
+- Tutup koneksi saat aplikasi shutdown.
+- Cache hanya untuk data yang bisa di-cache (user session, product list, dll).
+- Tentukan TTL (Time To Live) untuk setiap cache entry.
+- Handle error Redis gracefully, jangan sampai aplikasi crash.

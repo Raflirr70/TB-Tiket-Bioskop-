@@ -1,0 +1,89 @@
+CLEAN ARCHITECTURE - GO + GIN WEB APPLICATION
+===============================================
+
+Project ini menggunakan Clean Architecture untuk Go dengan Gin framework.
+
+STRUKTUR PROYEK:
+-----------------
+cmd/
+  server/              -> Entry point (main.go), dependency injection
+
+internal/              -> Semua kode aplikasi (private)
+  config/              -> Konfigurasi aplikasi (env, database config)
+  domain/              -> Core bisnis (INNERMOST layer)
+    entity/              -> Data structures murni tanpa dependensi
+    repository/          -> Interface untuk akses data
+    usecase/             -> Interface untuk logika bisnis
+  infrastructure/      -> Implementasi teknis
+    database/            -> Koneksi database (GORM)
+    cache/               -> Koneksi Redis/cache
+  delivery/            -> Interface ke dunia luar
+    http/
+      handler/           -> HTTP handler (Controller)
+      router/            -> Route definitions
+      middleware/         -> HTTP middleware (CORS, Auth, Logger)
+  repository/          -> Implementasi repository interface
+  usecase/             -> Implementasi usecase interface
+
+pkg/                   -> Shared utilities (public)
+  error/               -> Custom error types
+  helper/              -> Utility functions (password, jwt, uuid)
+  response/            -> Standard API response format
+  validator/           -> Custom input validation
+
+web/                   -> Frontend (HTML, CSS, JavaScript)
+  static/              -> Static assets (CSS, JS, images, fonts)
+    css/                 -> Stylesheet files
+    js/                  -> JavaScript files
+    img/                 -> Gambar
+    fonts/               -> Custom fonts
+  templates/           -> HTML templates (server-side rendering)
+    layouts/             -> Base layout template
+    pages/               -> Halaman HTML per page
+    partials/            -> Reusable HTML components
+  assets/              -> Raw assets & build tools (SCSS, TypeScript)
+
+docs/                  -> Dokumentasi proyek
+migrations/            -> Database migration files
+scripts/               -> Utility scripts
+test/                  -> Unit tests
+
+DEPENDENCY RULE:
+----------------
+Presentation -> Domain <- Infrastructure
+
+- Dependency hanya boleh dari DALAM ke LUAR.
+- Domain TIDAK boleh import apapun dari luar.
+- Repository interface di domain, implementasi di infrastructure.
+- UseCase interface di domain, implementasi di usecase.
+- Handler memanggil usecase, usecase memanggil repository.
+
+ALUR REQUEST:
+--------------
+Client -> Handler -> UseCase -> Repository -> Database
+  <-          <-          <-          <-
+
+SETUP:
+------
+1. go mod init yourproject
+2. go get github.com/gin-gonic/gin
+3. go get gorm.io/gorm
+4. go get gorm.io/driver/postgres
+5. Buat .env berdasarkan .env.example
+6. Jalankan: go run cmd/server/main.go
+
+Cara Pakai Template di Gin:
+-----------------------------
+// Load templates
+r.LoadHTMLGlob("web/templates/**/*")
+
+// Serve static files
+r.Static("/static", "./web/static")
+
+// Render page
+r.GET("/", func(c *gin.Context) {
+    c.HTML(200, "pages/index.html", gin.H{
+        "Title": "Home",
+        "Users": users,
+    })
+})

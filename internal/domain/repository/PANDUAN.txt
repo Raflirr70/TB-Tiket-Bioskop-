@@ -1,0 +1,35 @@
+INTERNAL/DOMAIN/REPOSITORY - INTERFACE REPOSITORY
+==================================================
+
+Folder ini berisi interface Repository yang didefinisikan oleh domain.
+
+File yang harus dibuat:
+-----------------------
+1. user_repository.go
+   - Interface UserRepository dengan method-method akses data.
+
+2. (Sesuai feature lainnya)
+
+Contoh:
+--------
+package repository
+
+import "yourproject/internal/domain/entity"
+
+type UserRepository interface {
+    FindByID(id int64) (*entity.User, error)
+    FindByEmail(email string) (*entity.User, error)
+    FindAll(limit, offset int) ([]entity.User, int64, error)
+    Create(user *entity.User) error
+    Update(user *entity.User) error
+    Delete(id int64) error
+}
+
+Panduan:
+--------
+- Interface didefinisikan di domain, diIMPLEMENTASI di infrastructure/repository/.
+- Method harus mendeskripsikan operasi data dengan jelas.
+- Jangan import package dari layer luar.
+- Domain hanya tahu KEBUTUHAN data, bukan CARA mengambilnya.
+- Gunakan entity作为 parameter dan return type.
+- Error return harus general (error), spesifikasi di implementasi.

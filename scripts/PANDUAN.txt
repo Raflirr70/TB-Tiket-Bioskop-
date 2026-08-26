@@ -1,0 +1,34 @@
+SCRIPTS - UTILITY SCRIPTS
+===========================
+
+Folder ini berisi script-script utility untuk development dan deployment.
+
+Script yang bisa dibuat:
+-------------------------
+1. migrate.sh / migrate.ps1
+   - Script untuk menjalankan database migration.
+
+2. seed.sh / seed.ps1
+   - Script untuk insert data dummy ke database.
+
+3. build.sh / build.ps1
+   - Script untuk build aplikasi.
+
+4. test.sh / test.ps1
+   - Script untuk menjalankan semua test.
+
+5. docker-compose.yml
+   - Konfigurasi Docker untuk menjalankan aplikasi + dependencies.
+
+Contoh migrate.ps1:
+-------------------
+# Run migrations
+Write-Host "Running migrations..."
+go run cmd/migrate/main.go -action=up
+
+Panduan:
+--------
+- Script harus bisa dijalankan dari root project.
+- Gunakan relative path agar portable.
+- Dokumentasikan cara pakai di README.
+- Jangan hardcode environment-specific values.

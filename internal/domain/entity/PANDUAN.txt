@@ -1,0 +1,37 @@
+INTERNAL/DOMAIN/ENTITY - ENTITAS BISNIS
+========================================
+
+Folder ini berisi Entity/Model yang merepresentasikan data bisnis murni.
+
+File yang harus dibuat:
+-----------------------
+1. user.go
+   - Struct User yang mendefinisikan properti user.
+   - Bersifat murni, tanpa dependensi ke framework atau database tag.
+
+2. (Sesuai feature lainnya)
+   - product.go, order.go, post.go, dll.
+
+Contoh:
+--------
+package entity
+
+import "time"
+
+type User struct {
+    ID        int64
+    Name      string
+    Email     string
+    Password  string
+    CreatedAt time.Time
+    UpdatedAt time.Time
+}
+
+Panduan:
+--------
+- Entity adalah INNERMOST layer, tidak boleh import apapun dari luar.
+- Jangan gunakan json tag atau db tag di sini.
+- Entity berisi definisi data saja, TIDAK ada logika.
+- Satu file per entity agar rapi.
+- Gunakan time.Time untuk timestamp, bukan string.
+- Untuk validasi bisnis, letakkan di usecase, bukan di entity.

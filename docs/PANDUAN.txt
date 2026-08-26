@@ -1,0 +1,61 @@
+DOCS - DOKUMENTASI PROYEK
+===========================
+
+Folder ini berisi dokumentasi proyek.
+
+File yang bisa dibuat:
+-----------------------
+1. api.md
+   - Dokumentasi semua endpoint API.
+   - Method, URL, Request Body, Response, Status Code.
+
+2. architecture.md
+   - Penjelasan arsitektur Clean Architecture yang diterapkan.
+
+3. setup.md
+   - Panduan setup environment dan menjalankan aplikasi.
+
+4. database.md
+   - Schema database, relasi antar table.
+
+5. swagger.yaml / swagger.json
+   - OpenAPI specification untuk dokumentasi API otomatis.
+
+Contoh Format api.md:
+----------------------
+## User API
+
+### GET /api/v1/users
+Mendapatkan semua users.
+
+Response 200:
+{
+  "code": 200,
+  "message": "success",
+  "data": [...],
+  "total": 100
+}
+
+### POST /api/v1/users
+Membuat user baru.
+
+Request Body:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "password": "secret123"
+}
+
+Response 201:
+{
+  "code": 201,
+  "message": "success",
+  "data": {...}
+}
+
+Panduan:
+--------
+- Dokumentasi harus selalu UP TO DATE.
+- Gunakan Swagger/OpenAPI untuk dokumentasi API otomatis.
+- Setiap endpoint harus didokumentasikan.
+- Sertakan contoh request dan response.

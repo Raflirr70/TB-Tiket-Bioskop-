@@ -1,0 +1,48 @@
+TEST/USECASE - USECASE TESTS
+==============================
+
+Folder ini berisi unit test untuk usecase implementation.
+
+File yang harus dibuat:
+-----------------------
+1. user_usecase_test.go
+   - Test untuk setiap method di UserUseCaseImpl.
+   - Mock repository untuk testing.
+   - Test logika bisnis.
+
+Contoh:
+--------
+package usecase_test
+
+import (
+    "testing"
+    "github.com/stretchr/testify/assert"
+    "yourproject/internal/usecase"
+)
+
+func TestGetUserByID(t *testing.T) {
+    // Setup mock
+    mockRepo := new(MockUserRepository)
+    uc := usecase.NewUserUseCase(mockRepo)
+    
+    // Mock return
+    mockRepo.On("FindByID", int64(1)).Return(&entity.User{
+        ID:   1,
+        Name: "Test User",
+    }, nil)
+    
+    // Test
+    user, err := uc.GetUserByID(1)
+    
+    assert.NoError(t, err)
+    assert.Equal(t, "Test User", user.Name)
+    mockRepo.AssertExpectations(t)
+}
+
+Panduan:
+--------
+- Mock repository menggunakan testify/mock.
+- Test semua path: success, error, edge case.
+- Test validasi bisnis (nama kosong, email duplikat, dll).
+- Pastikan error message jelas dan informatif.
+- Jalankan dengan: go test ./test/usecase/...

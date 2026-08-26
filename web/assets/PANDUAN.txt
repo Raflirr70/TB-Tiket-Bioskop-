@@ -1,0 +1,41 @@
+WEB/ASSETS - RAW ASSETS & BUILD TOOLS
+========================================
+
+Folder ini berisi raw source files yang perlu di-build sebelum dipakai.
+
+Isi yang bisa dimasukkan:
+--------------------------
+1. scss/ atau sass/
+   - Source SCSS files yang di-compile ke CSS.
+   - Variable, mixins, components SCSS.
+
+2. typescript/ atau ts/
+   - Source TypeScript files yang di-compile ke JavaScript.
+
+3. webpack.config.js / vite.config.js
+   - Konfigurasi build tool.
+
+4. package.json
+   - Dependencies untuk build tools (sass, webpack, postcss).
+
+Cara Pakai:
+------------
+1. Install dependencies:
+   npm install
+
+2. Build CSS:
+   npm run build:css
+
+3. Build JS:
+   npm run build:js
+
+4. Watch mode (development):
+   npm run dev
+
+Panduan:
+--------
+- Folder ini untuk SOURCE files, hasil build ke web/static/.
+- Gunakan build tool untuk minify dan optimize assets.
+- Jangan commit node_modules/ ke git.
+- Gunakan .gitignore untuk mengexclude folder build output.
+- Untuk project sederhana, skip folder ini dan langsung tulis di static/.

@@ -1,0 +1,32 @@
+STATIC/IMG - IMAGE ASSETS
+===========================
+
+Folder ini berisi semua file gambar yang digunakan di frontend.
+
+Jenis Gambar:
+--------------
+1. Logo
+   - logo.svg, logo.png
+   - Logo aplikasi dalam format SVG (vektor) atau PNG.
+
+2. Icons
+   - icon-*.svg atau icon-*.png
+   - Icon untuk navigasi, tombol, dll.
+
+3. Illustrations
+   - illustration-*.svg
+   - Gambar ilustrasi untuk empty state, error page, dll.
+
+4. Photos
+   - user-avatar.png, product-image.jpg
+   - Foto profile, produk, dll.
+
+Panduan:
+--------
+- Gunakan SVG untuk icon dan logo (scalable, file kecil).
+- Kompres gambar JPG/PNG dengan TinyPNG atau Squoosh.
+- Gunakan format WebP untuk gambar besar (lebih ringan).
+- Beri nama file yang deskriptif: icon-search.svg, bg-login.jpg.
+- Buat folder sub jika banyak: img/icons/, img/photos/.
+- Sediakan @2x untuk retina display jika perlu.
+- Jangan simpan gambar terlalu besar (>500KB), kompres dulu.
