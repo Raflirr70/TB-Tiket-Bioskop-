@@ -19,8 +19,7 @@
         <main class="main-content {{ if not .email }}full-width{{ end }}">
             {{ if eq .page "landing"}}
                 {{ template "landing-content" . }}
-            {{end}}
-            {{ if eq .page "dashboard"}}
+            {{ else if eq .page "dashboard"}}
                 {{ template "dashboard-content" . }}
             {{ else }}
                 {{ template "landing-content" . }}

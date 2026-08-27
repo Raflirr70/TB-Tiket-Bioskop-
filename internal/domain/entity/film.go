@@ -6,7 +6,7 @@ type Film struct {
 	ID          uint `gorm:"primaryKey"`
 	Name        string
 	Description string
-	Duration    string
+	Duration    int
 	Status      string
 	UpdatedAt   time.Time
 	CreatedAt   time.Time
