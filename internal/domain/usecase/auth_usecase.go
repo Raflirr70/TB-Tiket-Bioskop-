@@ -1,7 +1,7 @@
 package usecase
 
 type AuthUsecase interface {
-	Login(req LoginRequest) (token string, err error)
+	Login(req LoginRequest) (token string, redireq string, err error)
 	Register(req RegisterRequest) error
 }
 

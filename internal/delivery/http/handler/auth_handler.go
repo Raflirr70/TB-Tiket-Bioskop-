@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"Project/internal/config"
 	du "Project/internal/domain/usecase"
 	"Project/pkg/response"
 	"Project/pkg/validator"
@@ -11,10 +12,11 @@ import (
 
 type AuthHandler struct {
 	authUsecase du.AuthUsecase
+	cg          *config.Config
 }
 
-func NewAuthHandler(authUsecase du.AuthUsecase) *AuthHandler {
-	return &AuthHandler{authUsecase: authUsecase}
+func NewAuthHandler(authUsecase du.AuthUsecase, cg *config.Config) *AuthHandler {
+	return &AuthHandler{authUsecase: authUsecase, cg: cg}
 }
 
 func (h *AuthHandler) Logout(c *gin.Context) {
@@ -32,18 +34,18 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		response.Error(c, http.StatusBadRequest, err.Error())
 		return
 	}
-	token, err := h.authUsecase.Login(req)
+
+	token, redirect, err := h.authUsecase.Login(req)
 	if err != nil {
 		response.Error(c, http.StatusUnauthorized, err.Error())
 		return
 	}
 
-	// Set cookie "token" for browser access
 	c.SetCookie("token", token, 3600*24, "/", "", false, true)
 
 	response.Success(c, http.StatusOK, gin.H{
 		"token":    token,
-		"redirect": "/dashboard",
+		"redirect": redirect,
 	})
 }
 

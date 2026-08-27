@@ -69,3 +69,35 @@ func OptionalAuth(jwtSecret string) gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+func RequireAdmin(jwtSecret string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		tokenString, err := c.Cookie("token")
+		if err != nil {
+			c.Redirect(http.StatusFound, "/")
+			c.Abort()
+			return
+		}
+
+		claims, err := helper.ValidateToken(tokenString, jwtSecret)
+		if err != nil {
+			c.Redirect(http.StatusFound, "/")
+			c.Abort()
+			return
+		}
+
+		if claims.RoleID != 0 {
+			c.Redirect(http.StatusFound, "/")
+			c.Abort()
+			return
+		}
+
+		c.Set("user_id", claims.UserID)
+		c.Set("email", claims.Email)
+		c.Set("firstname", claims.Firstname)
+		c.Set("lastname", claims.Lastname)
+		c.Set("role", claims.RoleID)
+
+		c.Next()
+	}
+}

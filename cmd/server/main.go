@@ -29,7 +29,7 @@ func main() {
 	authUseCase := usecase.NewAuthUsecase(roleRepository, userRepository, cg)
 
 	//5. handler
-	authHandler := handler.NewAuthHandler(authUseCase)
+	authHandler := handler.NewAuthHandler(authUseCase, cg)
 	pageHandler := handler.NewPageHandler()
 
 	//7. routes

@@ -20,6 +20,7 @@ func (h *PageHandler) LandingPages(c *gin.Context) {
 		"email":     email,
 		"firstname": firstname,
 		"page":      "landing",
+		"nav":       false,
 	})
 }
 
@@ -30,6 +31,7 @@ func (h *PageHandler) LoginPages(c *gin.Context) {
 	}
 	c.HTML(http.StatusOK, "login", gin.H{
 		"title": "Login BooCinS",
+		"nav":   false,
 	})
 }
 
@@ -40,6 +42,7 @@ func (h *PageHandler) RegisterPages(c *gin.Context) {
 	}
 	c.HTML(http.StatusOK, "register", gin.H{
 		"title": "Register BooCinS",
+		"nav":   false,
 	})
 }
 
@@ -51,5 +54,6 @@ func (h *PageHandler) DashboardPage(c *gin.Context) {
 		"email":     email,
 		"firstname": firstname,
 		"page":      "dashboard",
+		"nav":       true,
 	})
 }

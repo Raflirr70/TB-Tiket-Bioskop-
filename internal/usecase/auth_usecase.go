@@ -28,22 +28,28 @@ func NewAuthUsecase(
 	}
 }
 
-func (u *AuthUsecaseImpl) Login(req du.LoginRequest) (string, error) {
+func (u *AuthUsecaseImpl) Login(req du.LoginRequest) (string, string, error) {
 	user, err := u.userRepository.FindByEmail(req.Email)
 	if err != nil {
-		return "", errors.New("Invalid email or password")
+		return "", "", errors.New("Invalid email or password")
 	}
 
 	if !helper.CheckPassword(req.Password, user.Password) {
-		return "", errors.New("Invalid email or password")
+		return "", "", errors.New("Invalid email or password")
 	}
 
 	token, err := helper.GenerateToken(user.ID, user.Email, user.Firstname, user.Lastname, user.RoleID, u.config.JWT)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	return token, nil
+	// pilih redirect berdasar role
+	redirect := "/" // user -> landing page
+	if user.RoleID == 0 {
+		redirect = "/dashboard" // admin -> dashboard
+	}
+
+	return token, redirect, nil
 }
 
 func (u *AuthUsecaseImpl) Register(req du.RegisterRequest) error {
