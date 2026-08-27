@@ -8,6 +8,7 @@ type UserUseCase interface {
 // DTO
 type UserResponse struct {
 	ID        uint
+	RoleID    uint
 	Email     string
 	Password  string
 	Firstname string

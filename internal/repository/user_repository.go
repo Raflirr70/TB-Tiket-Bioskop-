@@ -35,6 +35,7 @@ func (r *UserRepository) FindById(id uint) (*du.UserResponse, error) {
 
 	return &du.UserResponse{
 		ID:        user.ID,
+		RoleID:    user.RoleID,
 		Email:     user.Email,
 		Password:  user.Password,
 		Firstname: user.Firstname,
@@ -43,6 +44,23 @@ func (r *UserRepository) FindById(id uint) (*du.UserResponse, error) {
 	}, nil
 }
 
+func (r *UserRepository) FindByEmail(email string) (*du.UserResponse, error) {
+	var user entity.User
+	err := r.db.Where("email = ?", email).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &du.UserResponse{
+		ID:        user.ID,
+		RoleID:    user.RoleID,
+		Email:     user.Email,
+		Password:  user.Password,
+		Firstname: user.Firstname,
+		Lastname:  user.Lastname,
+		CreatedAt: user.CreatedAt,
+	}, nil
+}
 func (r *UserRepository) GetAll() ([]*du.UserResponse, error) {
 	var users []entity.User
 
@@ -56,6 +74,7 @@ func (r *UserRepository) GetAll() ([]*du.UserResponse, error) {
 	for _, user := range users {
 		respon = append(respon, &du.UserResponse{
 			ID:        user.ID,
+			RoleID:    user.RoleID,
 			Email:     user.Email,
 			Password:  user.Password,
 			Firstname: user.Firstname,

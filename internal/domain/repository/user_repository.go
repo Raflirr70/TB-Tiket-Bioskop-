@@ -9,6 +9,7 @@ type UserRepository interface {
 	Create(user *entity.User) error
 	Delete(id uint) error
 	FindById(id uint) (*du.UserResponse, error)
+	FindByEmail(email string) (*du.UserResponse, error)
 	GetAll() ([]*du.UserResponse, error)
 	Update(user *entity.User) error
 }
