@@ -1,0 +1,17 @@
+{{ define "sidebar" }}
+<aside class="sidebar" style="margin-top: 200px;">
+    <nav class="sidebar-nav">
+        <ul>
+            <li><a href="/dashboard" class="nav-item">Dashboard</a></li>
+            <li><a href="/aktivitas" class="nav-item">Kelola Aktivitas</a></li>
+            <li><a href="/keuangan" class="nav-item">Kelola Keuangan</a></li>
+            <li><a href="/achievement" class="nav-item">Achievement</a></li>
+            <li><a href="/punishment" class="nav-item">Punishment</a></li>
+            {{ if eq .role "admin" }}
+                <li class="admin-separator">ADMIN AREA</li>
+                <li><a href="/admin/users" class="nav-item admin-item">Kelola User</a></li>
+            {{ end }}
+        </ul>
+    </nav>
+</aside>
+{{ end }}

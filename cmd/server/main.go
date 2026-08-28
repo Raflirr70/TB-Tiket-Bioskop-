@@ -8,8 +8,6 @@ import (
 	"Project/internal/repository"
 	"Project/internal/usecase"
 	"log"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -24,18 +22,18 @@ func main() {
 
 	//3. repository
 	userRepository := repository.NewUserRepository(db)
+	roleRepository := repository.NewRoleRepository(db)
 
 	//4. usecase
-	userUsecase := usecase.NewUserUsecase(userRepository)
+	// userUsecase := usecase.NewUserUsecase(userRepository)
+	authUseCase := usecase.NewAuthUsecase(roleRepository, userRepository, cg)
 
 	//5. handler
-	userHandler := handler.NewUserHandler(userUsecase)
-
-	//6. inisialisasi router
-	r := gin.Default()
+	authHandler := handler.NewAuthHandler(authUseCase, cg)
+	pageHandler := handler.NewPageHandler()
 
 	//7. routes
-	router.UserRoute(r, userHandler)
+	r := router.NewRouter(cg, pageHandler, authHandler)
 
 	//8. run server
 	if err := r.Run(":8080"); err != nil {

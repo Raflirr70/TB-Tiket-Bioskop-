@@ -1,0 +1,27 @@
+{{ define "login" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="login-form" method="post">
+        <div style="display: flex; flex-direction: column;">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="Masukan Email">
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <label for="email">Password</label>
+            <input type="password" name="password" id="password" placeholder="Masukan Password">
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 50px;">
+            <button type="submit">Login</button>
+            <a href="/register">Register</a>
+        </div>
+    </form>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
+{{ end }}
