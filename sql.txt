@@ -1,0 +1,86 @@
+insert into genres(id,name) values
+(1,'Fantasy'),
+(2,'Action'),
+(3,'Romance'),
+(4,'Drama'),
+(5,'Adventure'),
+(6,'Horror');
+
+INSERT INTO films (id,name, synopsis, duration, status) VALUES
+(1,'Avengers: Endgame', 'Para Avengers berusaha mengembalikan keadaan setelah kekalahan mereka dan menghadapi ancaman terakhir dari Thanos.', 181, 'regular'),
+(2,'Spider-Man: No Way Home', 'Peter Parker meminta bantuan Doctor Strange untuk menghapus ingatan dunia tentang identitasnya, tetapi semuanya menjadi kacau.', 148, 'regular'),
+(3,'The Batman', 'Batman menyelidiki serangkaian pembunuhan misterius yang mengungkap korupsi di Gotham City.', 176, 'regular'),
+(4,'Guardians of the Galaxy Vol. 3', 'Para Guardians menjalankan misi berbahaya untuk menyelamatkan salah satu anggota mereka dari masa lalu yang kelam.', 150, 'pre sale'),
+(5,'Dune: Part Two', 'Paul Atreides bergabung dengan bangsa Fremen untuk membalas dendam dan menghadapi perjalanan besar di Arrakis.', 166, 'regular'),
+(6,'Inside Out 2', 'Riley menghadapi berbagai emosi baru ketika memasuki masa remaja dan mulai mengalami perubahan besar dalam hidupnya.', 96, 'regular'),
+(7,'Deadpool & Wolverine', 'Deadpool melakukan perjalanan lintas dimensi dan bekerja sama dengan Wolverine untuk menghadapi ancaman besar.', 128, 'pre sale'),
+(8,'Avatar: Fire and Ash', 'Petualangan baru di Pandora membawa para Na’vi menghadapi konflik dan ancaman dari wilayah yang belum mereka kenal.', 192, 'comming soon'),
+(9,'Fantastic Four', 'Empat manusia mendapatkan kekuatan luar biasa dan harus belajar bekerja sama untuk menghadapi ancaman besar.', 130, 'comming soon'),
+(10,'Mission: Impossible', 'Seorang agen rahasia menjalankan misi berbahaya untuk menghentikan organisasi misterius yang mengancam dunia.', 147, 'pre sale');
+
+insert into rooms(id,name, capasity) values
+(1,'Studio 1', 144),
+(2,'Studio 2', 144),
+(3,'Studio 3', 200);
+
+insert into genre_films values
+(1,1),
+(1,4),
+(2,2),
+(2,1),
+(3,3),
+(3,5),
+(4,5);
+
+INSERT INTO schedules (film_id, room_id, status, price, date, time) VALUES
+-- Avengers: Endgame
+(1, 1, 'scheduled', 50000, '2026-09-01 00:00:00', '2026-09-01 10:00:00'),
+(1, 1, 'scheduled', 50000, '2026-09-01 00:00:00', '2026-09-01 14:00:00'),
+(1, 2, 'scheduled', 55000, '2026-09-01 00:00:00', '2026-09-01 19:00:00'),
+
+-- Spider-Man: No Way Home
+(2, 1, 'scheduled', 50000, '2026-09-01 00:00:00', '2026-09-01 11:00:00'),
+(2, 2, 'scheduled', 50000, '2026-09-01 00:00:00', '2026-09-01 15:00:00'),
+(2, 3, 'scheduled', 60000, '2026-09-01 00:00:00', '2026-09-01 20:00:00'),
+
+-- The Batman
+(3, 2, 'scheduled', 50000, '2026-09-02 00:00:00', '2026-09-02 10:30:00'),
+(3, 2, 'scheduled', 50000, '2026-09-02 00:00:00', '2026-09-02 14:30:00'),
+(3, 3, 'scheduled', 60000, '2026-09-02 00:00:00', '2026-09-02 19:30:00'),
+
+-- Guardians of the Galaxy Vol. 3
+(4, 1, 'scheduled', 55000, '2026-09-02 00:00:00', '2026-09-02 11:00:00'),
+(4, 2, 'scheduled', 55000, '2026-09-02 00:00:00', '2026-09-02 16:00:00'),
+(4, 3, 'scheduled', 65000, '2026-09-02 00:00:00', '2026-09-02 20:00:00'),
+
+-- Dune: Part Two
+(5, 1, 'scheduled', 50000, '2026-09-03 00:00:00', '2026-09-03 10:00:00'),
+(5, 3, 'scheduled', 60000, '2026-09-03 00:00:00', '2026-09-03 14:00:00'),
+(5, 3, 'scheduled', 60000, '2026-09-03 00:00:00', '2026-09-03 19:00:00'),
+
+-- Inside Out 2
+(6, 1, 'scheduled', 45000, '2026-09-03 00:00:00', '2026-09-03 09:00:00'),
+(6, 1, 'scheduled', 45000, '2026-09-03 00:00:00', '2026-09-03 13:00:00'),
+(6, 2, 'scheduled', 50000, '2026-09-03 00:00:00', '2026-09-03 17:00:00'),
+
+-- Deadpool & Wolverine
+(7, 2, 'scheduled', 55000, '2026-09-04 00:00:00', '2026-09-04 11:00:00'),
+(7, 3, 'scheduled', 65000, '2026-09-04 00:00:00', '2026-09-04 15:30:00'),
+(7, 3, 'scheduled', 65000, '2026-09-04 00:00:00', '2026-09-04 20:00:00'),
+
+-- Avatar: Fire and Ash
+(8, 3, 'scheduled', 65000, '2026-09-05 00:00:00', '2026-09-05 10:00:00'),
+(8, 3, 'scheduled', 65000, '2026-09-05 00:00:00', '2026-09-05 15:00:00'),
+(8, 3, 'scheduled', 70000, '2026-09-05 00:00:00', '2026-09-05 20:00:00'),
+
+-- Fantastic Four
+(9, 1, 'scheduled', 50000, '2026-09-05 00:00:00', '2026-09-05 11:00:00'),
+(9, 2, 'scheduled', 50000, '2026-09-05 00:00:00', '2026-09-05 15:00:00'),
+(9, 2, 'scheduled', 55000, '2026-09-05 00:00:00', '2026-09-05 19:00:00'),
+
+-- Mission: Impossible
+(10, 1, 'scheduled', 50000, '2026-09-06 00:00:00', '2026-09-06 10:00:00'),
+(10, 2, 'scheduled', 55000, '2026-09-06 00:00:00', '2026-09-06 14:00:00'),
+(10, 3, 'scheduled', 60000, '2026-09-06 00:00:00', '2026-09-06 19:00:00');
+
+select * from schedules;
