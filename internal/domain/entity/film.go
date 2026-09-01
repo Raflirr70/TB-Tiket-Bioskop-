@@ -14,7 +14,7 @@ type Film struct {
 
 	Comments  []Comment
 	Bookmarks []Bookmark
-	Genres    []Genre `gorm:"many2many:genre_films;"`
+	Genres    []Genre `gorm:"many2many:genre_films"`
 	Sources   []Source
 	Schedules []Schedule
 }

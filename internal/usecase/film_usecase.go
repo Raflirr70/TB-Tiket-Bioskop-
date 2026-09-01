@@ -41,6 +41,20 @@ func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
 				Name: genre.Name,
 			})
 		}
+		schedules := make([]du.ScheduleRespone, 0, len(film.Schedules))
+
+		for _, schedule := range film.Schedules {
+			schedules = append(schedules, du.ScheduleRespone{
+				ID:        schedule.ID,
+				FilmID:    schedule.FilmID,
+				RoomID:    schedule.RoomID,
+				Status:    schedule.Status,
+				Price:     schedule.Price,
+				Date:      schedule.Date,
+				Time:      schedule.Time,
+				CreatedAt: schedule.CreatedAt,
+			})
+		}
 
 		result = append(result, du.FilmResponse{
 			ID:        film.ID,
@@ -52,6 +66,7 @@ func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
 			UpdatedAt: film.UpdatedAt,
 			CreatedAt: film.CreatedAt,
 			Genres:    genres,
+			Schedules: schedules,
 		})
 	}
 

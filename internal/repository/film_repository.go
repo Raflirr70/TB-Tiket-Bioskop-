@@ -48,7 +48,7 @@ func (r *FilmRepository) FindById(id uint) (*du.FilmResponse, error) {
 func (r *FilmRepository) GetAll() ([]du.FilmResponse, error) {
 	var films []entity.Film
 
-	err := r.db.Preload("Genres").Preload("schedules").Find(&films).Error
+	err := r.db.Preload("Genres").Preload("Schedules").Find(&films).Error
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,20 @@ func (r *FilmRepository) GetAll() ([]du.FilmResponse, error) {
 				Name: genre.Name,
 			})
 		}
+		schedules := make([]du.ScheduleRespone, 0, len(film.Schedules))
 
+		for _, schedule := range film.Schedules {
+			schedules = append(schedules, du.ScheduleRespone{
+				ID:        schedule.ID,
+				FilmID:    schedule.FilmID,
+				RoomID:    schedule.RoomID,
+				Status:    schedule.Status,
+				Price:     schedule.Price,
+				Date:      schedule.Date,
+				Time:      schedule.Time,
+				CreatedAt: schedule.CreatedAt,
+			})
+		}
 		respon = append(respon, du.FilmResponse{
 			ID:        film.ID,
 			Name:      film.Name,
@@ -75,6 +88,7 @@ func (r *FilmRepository) GetAll() ([]du.FilmResponse, error) {
 			UpdatedAt: film.UpdatedAt,
 			CreatedAt: film.CreatedAt,
 			Genres:    genres,
+			Schedules: schedules,
 		})
 	}
 

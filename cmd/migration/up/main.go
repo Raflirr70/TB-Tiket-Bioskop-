@@ -25,7 +25,6 @@ func main() {
 		&entity.Seat{},
 		&entity.Source{},
 
-		&entity.Genre{},
 		&entity.Comment{},
 		&entity.Bookmark{},
 		&entity.Schedule{},
