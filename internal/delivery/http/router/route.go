@@ -12,6 +12,7 @@ func NewRouter(
 	cfg *config.Config,
 	pageHandler *handler.PageHandler,
 	authHandler *handler.AuthHandler,
+	filmHandler *handler.FilmHandler,
 ) *gin.Engine {
 	r := gin.Default()
 
@@ -28,6 +29,8 @@ func NewRouter(
 	r.POST("/api/v1/auth/login", authHandler.Login)
 	r.POST("/api/v1/auth/logout", authHandler.Logout)
 	r.POST("/api/v1/auth/register", authHandler.Register)
+
+	r.GET("/api/v1/films", filmHandler.GetAllFilm)
 
 	r.GET("/dashboard", middleware.RequireAdmin(cfg.JWT), pageHandler.DashboardPage)
 

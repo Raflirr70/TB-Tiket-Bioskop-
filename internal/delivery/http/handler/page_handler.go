@@ -12,17 +12,17 @@ func NewPageHandler() *PageHandler {
 	return &PageHandler{}
 }
 
-func (h *PageHandler) LandingPages(c *gin.Context) {
-	email, _ := c.Get("email")
-	firstname, _ := c.Get("firstname")
-	c.HTML(http.StatusOK, "base", gin.H{
-		"title":     "TB",
-		"email":     email,
-		"firstname": firstname,
-		"page":      "landing",
-		"nav":       false,
-	})
-}
+	func (h *PageHandler) LandingPages(c *gin.Context) {
+		email, _ := c.Get("email")
+		firstname, _ := c.Get("firstname")
+		c.HTML(http.StatusOK, "base", gin.H{
+			"title":     "TB",
+			"email":     email,
+			"firstname": firstname,
+			"page":      "landing",
+			"nav":       false,
+		})
+	}
 
 func (h *PageHandler) LoginPages(c *gin.Context) {
 	if _, err := c.Cookie("token"); err == nil {
