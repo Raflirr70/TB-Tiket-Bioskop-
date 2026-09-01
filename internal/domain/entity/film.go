@@ -12,9 +12,9 @@ type Film struct {
 	UpdatedAt time.Time
 	CreatedAt time.Time
 
-	Comments   []Comment
-	Bookmarks  []Bookmark
-	GenreFilms []GenreFilm
-	Sources    []Source
-	Schedules  []Schedule
+	Comments  []Comment
+	Bookmarks []Bookmark
+	Genres    []Genre `gorm:"many2many:genre_films;"`
+	Sources   []Source
+	Schedules []Schedule
 }

@@ -33,15 +33,10 @@ func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
 	result := make([]du.FilmResponse, 0, len(films))
 
 	for _, film := range films {
-		genres, err := u.genreRepo.GetByFilmID(film.ID)
-		if err != nil {
-			return nil, err
-		}
+		genres := make([]du.GenreResponse, 0, len(film.Genres))
 
-		resultGenres := make([]du.GenreResponse, 0, len(genres))
-
-		for _, genre := range genres {
-			resultGenres = append(resultGenres, du.GenreResponse{
+		for _, genre := range film.Genres {
+			genres = append(genres, du.GenreResponse{
 				ID:   genre.ID,
 				Name: genre.Name,
 			})
@@ -56,7 +51,7 @@ func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
 			Status:    film.Status,
 			UpdatedAt: film.UpdatedAt,
 			CreatedAt: film.CreatedAt,
-			Genres:    resultGenres,
+			Genres:    genres,
 		})
 	}
 

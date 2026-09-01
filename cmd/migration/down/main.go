@@ -32,7 +32,6 @@ func main() {
 		&entity.ScheduleSeat{},
 
 		&entity.Ticket{},
-		&entity.GenreFilm{},
 	)
 	if err != nil {
 		log.Fatal("Failed Rollback")
