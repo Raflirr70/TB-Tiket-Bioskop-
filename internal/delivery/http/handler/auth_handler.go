@@ -64,5 +64,5 @@ func (h *AuthHandler) Register(c *gin.Context) {
 		response.Error(c, http.StatusBadRequest, err.Error())
 		return
 	}
-	c.Redirect(http.StatusSeeOther, "/login")
+	response.Success(c, http.StatusOK, "Registrasi berhasil")
 }

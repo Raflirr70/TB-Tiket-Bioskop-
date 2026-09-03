@@ -36,5 +36,13 @@ func NewRouter(
 
 	r.GET("/dashboard", middleware.RequireAdmin(cfg.JWT), pageHandler.DashboardPage)
 
+	// Dashboard sections (placeholder, judul saja)
+	r.GET("/transactions", middleware.RequireAdmin(cfg.JWT), func(c *gin.Context) { pageHandler.DashboardSection(c, "Transaction Ticket Offline") })
+	r.GET("/schedules", middleware.RequireAdmin(cfg.JWT), func(c *gin.Context) { pageHandler.DashboardSection(c, "Daftar Schedule Film") })
+	r.GET("/manage-films", middleware.RequireAdmin(cfg.JWT), func(c *gin.Context) { pageHandler.DashboardSection(c, "Kelola Films & Schedules") })
+	r.GET("/manage-rooms", middleware.RequireAdmin(cfg.JWT), func(c *gin.Context) { pageHandler.DashboardSection(c, "Kelola Rooms & Seats") })
+	r.GET("/food", middleware.RequireAdmin(cfg.JWT), func(c *gin.Context) { pageHandler.DashboardSection(c, "Kelola Makanan") })
+	r.GET("/membership", middleware.RequireAdmin(cfg.JWT), func(c *gin.Context) { pageHandler.DashboardSection(c, "Kelola Membership") })
+
 	return r
 }

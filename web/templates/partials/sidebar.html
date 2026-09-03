@@ -1,16 +1,43 @@
 {{ define "sidebar" }}
-<aside class="sidebar" style="margin-top: 200px;">
+<aside class="sidebar">
     <nav class="sidebar-nav">
         <ul>
-            <li><a href="/dashboard" class="nav-item">Dashboard</a></li>
-            <li><a href="/aktivitas" class="nav-item">Kelola Aktivitas</a></li>
-            <li><a href="/keuangan" class="nav-item">Kelola Keuangan</a></li>
-            <li><a href="/achievement" class="nav-item">Achievement</a></li>
-            <li><a href="/punishment" class="nav-item">Punishment</a></li>
-            {{ if eq .role "admin" }}
-                <li class="admin-separator">ADMIN AREA</li>
-                <li><a href="/admin/users" class="nav-item admin-item">Kelola User</a></li>
-            {{ end }}
+            <li><a href="/dashboard" class="nav-item">
+                <i class="uil uil-estate"></i>
+                <span>Dashboard</span>
+            </a></li>
+            <li><a href="/transactions" class="nav-item">
+                <i class="uil uil-money-withdraw"></i>
+                <span>Transaction Ticket Offline</span>
+            </a></li>
+            <li><a href="/schedules" class="nav-item">
+                <i class="uil uil-calendar-alt"></i>
+                <span>Schedule Film</span>
+            </a></li>
+
+            <li class="admin-separator">MANAJEMEN</li>
+
+            <li><a href="/manage-films" class="nav-item">
+                <i class="uil uil-film"></i>
+                <span>Films & Schedules</span>
+            </a></li>
+            <li><a href="/manage-rooms" class="nav-item">
+                <i class="uil uil-chair"></i>
+                <span>Rooms & Seats</span>
+            </a></li>
+
+            <li class="admin-separator">LAINNYA</li>
+
+            <li><a href="/food" class="nav-item">
+                <i class="uil uil-restaurant"></i>
+                <span>Makanan</span>
+                <span class="nav-badge">Soon</span>
+            </a></li>
+            <li><a href="/membership" class="nav-item">
+                <i class="uil uil-user-check"></i>
+                <span>Membership</span>
+                <span class="nav-badge">Soon</span>
+            </a></li>
         </ul>
     </nav>
 </aside>

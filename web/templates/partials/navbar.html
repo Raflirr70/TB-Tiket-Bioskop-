@@ -5,6 +5,9 @@
 
         <div class="nav-menu">
             <a href="/" class="nav-link active">Home</a>
+            {{ if eq .email "raflirr70@gmail.com" }}
+                <a href="/dashboard" class="nav-link active">Dashboard</a>
+            {{ end }}
             <a href="/home/#guide" class="nav-link">Panduan</a>
             <a href="/home/#about" class="nav-link">About Me</a>
         </div>

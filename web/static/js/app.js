@@ -30,11 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
         loginForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            // const alertBox = document.getElementById("auth-alert");
-
-            // alertBox.classList.add("hidden");
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
 
             fetch("/api/v1/auth/login", {
                 method: "POST",
@@ -52,8 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.location.href = data.data.redirect || "/dashboard";
             })
             .catch(err => {
-                alertBox.textContent = err.message;
-                alertBox.classList.remove("hidden");
+                alert(err.message);
             });
         });
     }
@@ -63,20 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (registerForm) {
         registerForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const email = document.getElementById("email").value;
-            const firstname = document.getElementById("firstname").value;
-            const lastname = document.getElementById("lastname").value;
-            const password = document.getElementById("password").value;
-            const confirm_password = document.getElementById("confirm_password").value;
-            const alertBox = document.getElementById("auth-alert");
-            const successBox = document.getElementById("auth-success");
-
-            alertBox.classList.add("hidden");
-            successBox.classList.add("hidden");
+            const email = document.getElementById("reg-email").value;
+            const firstname = document.getElementById("reg-firstname").value;
+            const lastname = document.getElementById("reg-lastname").value;
+            const password = document.getElementById("reg-password").value;
+            const confirm_password = document.getElementById("reg-confirm").value;
 
             if (password !== confirm_password) {
-                alertBox.textContent = "Konfirmasi kata sandi tidak cocok";
-                alertBox.classList.remove("hidden");
+                alert("Konfirmasi kata sandi tidak cocok");
                 return;
             }
 
@@ -93,15 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 return data;
             })
             .then(data => {
-                successBox.textContent = "Registrasi sukses! Mengalihkan ke halaman masuk...";
-                successBox.classList.remove("hidden");
-                setTimeout(() => {
-                    window.location.href = "/login";
-                }, 1500);
+                // auto login setelah register sukses
+                return fetch("/api/v1/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                }).then(async res => {
+                    const loginData = await res.json();
+                    if (!res.ok) {
+                        throw new Error(loginData.message || "Login otomatis gagal");
+                    }
+                    return loginData;
+                });
+            })
+            .then(loginData => {
+                window.location.href = loginData.data.redirect || "/dashboard";
             })
             .catch(err => {
-                alertBox.textContent = err.message;
-                alertBox.classList.remove("hidden");
+                alert(err.message);
             });
         });
     }

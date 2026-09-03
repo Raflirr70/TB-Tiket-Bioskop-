@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/navbar.css">
     <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4/css/line.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -16,7 +17,7 @@
         {{ if .nav }}
             {{ template "sidebar" . }}
         {{ end }}
-        <main class="main-content {{ if not .email }}full-width{{ end }}">
+        <main class="main-content {{ if .nav }}has-sidebar{{ end }}">
             {{ if eq .page "landing"}}
                 {{ template "landing-content" . }}
                 <script src="/static/js/landing_page.js"></script>
