@@ -23,17 +23,21 @@ func main() {
 	//3. repository
 	userRepository := repository.NewUserRepository(db)
 	roleRepository := repository.NewRoleRepository(db)
+	filmRepository := repository.NewFilmRepository(db)
+	genreRepository := repository.NewGenreRepository(db)
 
 	//4. usecase
 	// userUsecase := usecase.NewUserUsecase(userRepository)
 	authUseCase := usecase.NewAuthUsecase(roleRepository, userRepository, cg)
+	filmUseCase := usecase.NewFilmUsecase(filmRepository, genreRepository, cg)
 
 	//5. handler
 	authHandler := handler.NewAuthHandler(authUseCase, cg)
+	filmHandler := handler.NewFilmHandler(filmUseCase, cg)
 	pageHandler := handler.NewPageHandler()
 
 	//7. routes
-	r := router.NewRouter(cg, pageHandler, authHandler)
+	r := router.NewRouter(cg, pageHandler, authHandler, filmHandler)
 
 	//8. run server
 	if err := r.Run(":8080"); err != nil {

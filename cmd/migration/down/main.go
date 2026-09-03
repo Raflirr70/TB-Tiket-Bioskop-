@@ -25,13 +25,13 @@ func main() {
 		&entity.Seat{},
 		&entity.Source{},
 
-		&entity.Genre{},
-		&entity.Comment{},
+		&entity.Ratting{},
 		&entity.Bookmark{},
 		&entity.Schedule{},
 		&entity.ScheduleSeat{},
 
 		&entity.Ticket{},
+		"genre_films",
 	)
 	if err != nil {
 		log.Fatal("Failed Rollback")
