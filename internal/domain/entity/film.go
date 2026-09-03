@@ -9,10 +9,11 @@ type Film struct {
 	Duration  int
 	Price     int
 	Status    string
+	IrlImg    string
 	UpdatedAt time.Time
 	CreatedAt time.Time
 
-	Comments  []Comment
+	Rattings  []Ratting
 	Bookmarks []Bookmark
 	Genres    []Genre `gorm:"many2many:genre_films"`
 	Sources   []Source

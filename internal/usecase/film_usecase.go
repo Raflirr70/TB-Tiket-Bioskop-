@@ -24,8 +24,8 @@ func NewFilmUsecase(
 	}
 }
 
-func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
-	films, err := u.filmRepo.GetAll()
+func (u *FilmUsecaseImpl) GetAllFilm(limit int, sort string) ([]du.FilmResponse, error) {
+	films, err := u.filmRepo.GetAll(limit, sort)
 	if err != nil {
 		return nil, err
 	}
@@ -41,18 +41,40 @@ func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
 				Name: genre.Name,
 			})
 		}
-		schedules := make([]du.ScheduleRespone, 0, len(film.Schedules))
+		var totalRating int
 
+		for _, rating := range film.Rattings {
+			totalRating += rating.Value
+		}
+
+		var averageRating float32
+
+		if len(film.Rattings) > 0 {
+			averageRating = float32(totalRating) / float32(len(film.Rattings))
+		}
+
+		schedules := make([]du.ScheduleResponse, 0, len(film.Schedules))
 		for _, schedule := range film.Schedules {
-			schedules = append(schedules, du.ScheduleRespone{
-				ID:        schedule.ID,
-				FilmID:    schedule.FilmID,
-				RoomID:    schedule.RoomID,
-				Status:    schedule.Status,
-				Price:     schedule.Price,
-				Date:      schedule.Date,
-				Time:      schedule.Time,
-				CreatedAt: schedule.CreatedAt,
+			seats := make([]du.ScheduleSeatResponse, 0, len(schedule.ScheduleSeats))
+
+			for _, seat := range schedule.ScheduleSeats {
+				seats = append(seats, du.ScheduleSeatResponse{
+					ID:         seat.ID,
+					ScheduleID: seat.ScheduleID,
+					SeatID:     seat.SeatID,
+					Status:     seat.Status,
+					Time:       seat.Time,
+				})
+			}
+			schedules = append(schedules, du.ScheduleResponse{
+				ID:             schedule.ID,
+				FilmID:         schedule.FilmID,
+				RoomID:         schedule.RoomID,
+				Status:         schedule.Status,
+				Date:           schedule.Date,
+				Time:           schedule.Time,
+				CreatedAt:      schedule.CreatedAt,
+				SchedulesSeats: seats,
 			})
 		}
 
@@ -63,10 +85,12 @@ func (u *FilmUsecaseImpl) GetAllFilm() ([]du.FilmResponse, error) {
 			Duration:  film.Duration,
 			Price:     film.Price,
 			Status:    film.Status,
+			IrlImg:    film.IrlImg,
 			UpdatedAt: film.UpdatedAt,
 			CreatedAt: film.CreatedAt,
 			Genres:    genres,
 			Schedules: schedules,
+			Ratting:   averageRating,
 		})
 	}
 

@@ -40,59 +40,35 @@ func (r *FilmRepository) FindById(id uint) (*du.FilmResponse, error) {
 		Duration:  film.Duration,
 		Price:     film.Price,
 		Status:    film.Status,
+		IrlImg:    film.IrlImg,
 		UpdatedAt: film.UpdatedAt,
 		CreatedAt: film.CreatedAt,
 	}, nil
 }
 
-func (r *FilmRepository) GetAll() ([]du.FilmResponse, error) {
+func (r *FilmRepository) GetAll(limit int, sort string) ([]entity.Film, error) {
 	var films []entity.Film
 
-	err := r.db.Preload("Genres").Preload("Schedules").Find(&films).Error
+	query := r.db.
+		Preload("Genres").
+		Preload("Schedules").
+		Preload("Schedules.ScheduleSeats").
+		Preload("Rattings")
+	switch sort {
+	case "ratting":
+		query = query.Order("(SELECT COALESCE(AVG(value), 0) FROM rattings WHERE rattings.film_id = films.id) DESC")
+	default:
+		query = query.Order("films.created_at DESC")
+	}
+	if limit > 0 {
+		query = query.Limit(limit)
+	}
+	err := query.Find(&films).Error
 	if err != nil {
 		return nil, err
 	}
 
-	respon := make([]du.FilmResponse, 0, len(films))
-
-	for _, film := range films {
-		genres := make([]du.GenreResponse, 0, len(film.Genres))
-
-		for _, genre := range film.Genres {
-			genres = append(genres, du.GenreResponse{
-				ID:   genre.ID,
-				Name: genre.Name,
-			})
-		}
-		schedules := make([]du.ScheduleRespone, 0, len(film.Schedules))
-
-		for _, schedule := range film.Schedules {
-			schedules = append(schedules, du.ScheduleRespone{
-				ID:        schedule.ID,
-				FilmID:    schedule.FilmID,
-				RoomID:    schedule.RoomID,
-				Status:    schedule.Status,
-				Price:     schedule.Price,
-				Date:      schedule.Date,
-				Time:      schedule.Time,
-				CreatedAt: schedule.CreatedAt,
-			})
-		}
-		respon = append(respon, du.FilmResponse{
-			ID:        film.ID,
-			Name:      film.Name,
-			Synopsis:  film.Synopsis,
-			Duration:  film.Duration,
-			Price:     film.Price,
-			Status:    film.Status,
-			UpdatedAt: film.UpdatedAt,
-			CreatedAt: film.CreatedAt,
-			Genres:    genres,
-			Schedules: schedules,
-		})
-	}
-
-	return respon, nil
+	return films, nil
 }
 
 func (r *FilmRepository) Update(user *entity.Film) error {

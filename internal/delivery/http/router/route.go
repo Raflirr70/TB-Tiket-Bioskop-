@@ -23,6 +23,8 @@ func NewRouter(
 	// Public Web Routes
 	// r.GET("/", middleware.Auth(cfg), pageHandler.GetLandingPage) // we use Auth middleware but it won't force-abort page request if cookie isn't present unless we enforce it in Handler. Actually landing page is public, but let's allow it to read auth info
 	r.GET("/", middleware.OptionalAuth(cfg.JWT), pageHandler.LandingPages)
+	r.GET("/home", middleware.OptionalAuth(cfg.JWT), pageHandler.HomePages)
+	r.GET("/films", middleware.OptionalAuth(cfg.JWT), pageHandler.FilmsPage)
 	r.GET("/login", middleware.OptionalAuth(cfg.JWT), pageHandler.LoginPages)
 	r.GET("/register", middleware.OptionalAuth(cfg.JWT), pageHandler.RegisterPages)
 
