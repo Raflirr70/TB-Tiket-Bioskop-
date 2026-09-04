@@ -190,3 +190,4 @@ Respons list room (yang dipakai grid):
 - Input tak boleh nol/negatif (min 1) dan nama ruangan wajib.
 - Dua ruangan tak boleh nama sama (validasi unique).
 - Edit memungkinkan ubah nama & status (`ready`/`not_ready`).
+- Room Ketika baru dibuat, statusnya `not_ready`

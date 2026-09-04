@@ -27,6 +27,15 @@
             {{ else if eq .page "films"}}
                 {{ template "films-content" . }}
                 <script src="/static/js/films_page.js"></script>
+            {{ else if eq .page "rooms"}}
+                {{ template "rooms-content" . }}
+                <script src="/static/js/room_page.js"></script>
+            {{ else if eq .page "manage-films"}}
+                {{ template "manage-films-content" . }}
+                <script src="/static/js/manage_films_page.js"></script>
+            {{ else if eq .page "create-film"}}
+                {{ template "create-film-content" . }}
+                <script src="/static/js/create_film_page.js"></script>
             {{ else if eq .page "dashboard"}}
                 {{ template "dashboard-content" . }}
             {{ else }}
@@ -36,7 +45,9 @@
         </main>
     </div>
     
-    {{ template "footer" . }}
+    {{ if not .nav }}
+        {{ template "footer" . }}
+    {{ end }}
     
     <script src="/static/js/app.js"></script>
 </body>

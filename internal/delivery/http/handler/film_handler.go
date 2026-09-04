@@ -4,8 +4,12 @@ import (
 	"Project/internal/config"
 	du "Project/internal/domain/usecase"
 	"Project/pkg/response"
+	"fmt"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,4 +45,52 @@ func (h *FilmHandler) GetAllFilm(c *gin.Context) {
 	}
 
 	response.Success(c, http.StatusOK, films)
+}
+
+func (h *FilmHandler) CreateFilm(c *gin.Context) {
+	var req du.CreateFilmRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		response.Error(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if req.Name == "" {
+		response.Error(c, http.StatusBadRequest, "nama film wajib diisi")
+		return
+	}
+
+	film, err := h.filmUsecase.CreateFilm(req)
+	if err != nil {
+		response.Error(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response.Success(c, http.StatusCreated, film)
+}
+
+func (h *FilmHandler) UploadPoster(c *gin.Context) {
+	file, err := c.FormFile("poster")
+	if err != nil {
+		response.Error(c, http.StatusBadRequest, "file poster tidak ditemukan")
+		return
+	}
+
+	uploadDir := "./web/static/uploads"
+	if err := os.MkdirAll(uploadDir, os.ModePerm); err != nil {
+		response.Error(c, http.StatusInternalServerError, "gagal membuat direktori upload")
+		return
+	}
+
+	filename := fmt.Sprintf("%d_%s", time.Now().UnixNano(), filepath.Base(file.Filename))
+	savePath := filepath.Join(uploadDir, filename)
+
+	if err := c.SaveUploadedFile(file, savePath); err != nil {
+		response.Error(c, http.StatusInternalServerError, "gagal menyimpan file poster")
+		return
+	}
+
+	fileURL := "/static/uploads/" + filename
+	response.Success(c, http.StatusOK, gin.H{
+		"url": fileURL,
+	})
 }

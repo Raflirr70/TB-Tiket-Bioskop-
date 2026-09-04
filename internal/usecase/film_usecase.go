@@ -2,8 +2,10 @@ package usecase
 
 import (
 	"Project/internal/config"
+	"Project/internal/domain/entity"
 	"Project/internal/domain/repository"
 	du "Project/internal/domain/usecase"
+	"time"
 )
 
 type FilmUsecaseImpl struct {
@@ -95,4 +97,65 @@ func (u *FilmUsecaseImpl) GetAllFilm(limit int, sort string) ([]du.FilmResponse,
 	}
 
 	return result, nil
+}
+
+func (u *FilmUsecaseImpl) CreateFilm(req du.CreateFilmRequest) (*du.FilmResponse, error) {
+	var schedules []entity.Schedule
+
+	for _, s := range req.Schedules {
+		if s.RoomID == 0 {
+			continue
+		}
+
+		parsedDate, err := time.Parse("2006-01-02", s.Date)
+		if err != nil {
+			parsedDate = time.Now()
+		}
+
+		parsedTime, err := time.Parse("15:04", s.Time)
+		if err != nil {
+			parsedTime = time.Now()
+		}
+
+		schedules = append(schedules, entity.Schedule{
+			RoomID:    s.RoomID,
+			Status:    "scheduled",
+			Date:      parsedDate,
+			Time:      parsedTime,
+			CreatedAt: time.Now(),
+		})
+	}
+
+	status := req.Status
+	if status == "" {
+		status = "regular"
+	}
+
+	film := &entity.Film{
+		Name:      req.Name,
+		Synopsis:  req.Synopsis,
+		Duration:  req.Duration,
+		Price:     req.Price,
+		Status:    status,
+		IrlImg:    req.IrlImg,
+		Schedules: schedules,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+
+	if err := u.filmRepo.Create(film); err != nil {
+		return nil, err
+	}
+
+	return &du.FilmResponse{
+		ID:        film.ID,
+		Name:      film.Name,
+		Synopsis:  film.Synopsis,
+		Duration:  film.Duration,
+		Price:     film.Price,
+		Status:    film.Status,
+		IrlImg:    film.IrlImg,
+		CreatedAt: film.CreatedAt,
+		UpdatedAt: film.UpdatedAt,
+	}, nil
 }

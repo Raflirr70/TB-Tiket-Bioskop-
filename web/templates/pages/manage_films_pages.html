@@ -1,0 +1,54 @@
+{{ template "base" . }}
+{{ define "manage-films-content" }}
+<main class="manage-films-page">
+    <div class="manage-films-header">
+        <div>
+            <h1>Kelola Films & Schedules</h1>
+            <p>Kelola data film, status penayangan, dan jadwal bioskop.</p>
+        </div>
+    </div>
+
+    <!-- TAB MENU & ACTIONS SEJAJAR -->
+    <div class="manage-films-toolbar">
+        <div class="manage-films-tabs" id="manage-films-tabs">
+            <button type="button" class="film-tab active" data-status="all">Semua Film</button>
+            <button type="button" class="film-tab" data-status="regular">Regular / Now Playing</button>
+            <button type="button" class="film-tab" data-status="pre sale">Pre Sale</button>
+            <button type="button" class="film-tab" data-status="comming soon">Coming Soon</button>
+        </div>
+
+        <div class="manage-films-actions">
+            <div class="film-search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" id="film-search-input" placeholder="Cari film..." autocomplete="off">
+            </div>
+
+            <button type="button" class="btn-primary btn-add-film" id="add-film-btn">
+                <i class="uil uil-plus"></i> Tambah Film
+            </button>
+        </div>
+    </div>
+
+    <!-- TABEL DAFTAR FILM -->
+    <div class="manage-films-table-container">
+        <table class="manage-films-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">No</th>
+                    <th style="width: 80px;">Gambar</th>
+                    <th>Judul Film</th>
+                    <th>Sinopsis</th>
+                    <th style="width: 100px;">Durasi</th>
+                    <th style="width: 120px;">Harga</th>
+                    <th style="width: 130px;">Status</th>
+                </tr>
+            </thead>
+            <tbody id="manage-films-tbody">
+                <tr>
+                    <td colspan="7" class="table-loading">Memuat data film...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+{{ end }}
