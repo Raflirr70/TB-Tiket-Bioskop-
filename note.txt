@@ -1,0 +1,2 @@
+ini merupakan versi ke 1
+ada tampilannya sedikit, dahsboard, landingpages, daftar film
