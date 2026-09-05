@@ -37,10 +37,9 @@ func main() {
 	authHandler := handler.NewAuthHandler(authUseCase, cg)
 	filmHandler := handler.NewFilmHandler(filmUseCase, cg)
 	roomHandler := handler.NewRoomHandler(roomUseCase)
-	pageHandler := handler.NewPageHandler()
 
 	//7. routes
-	r := router.NewRouter(cg, pageHandler, authHandler, filmHandler, roomHandler)
+	r := router.NewRouter(cg, authHandler, filmHandler, roomHandler)
 
 	//8. run server
 	if err := r.Run(":8080"); err != nil {
