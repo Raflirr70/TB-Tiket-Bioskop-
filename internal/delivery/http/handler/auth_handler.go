@@ -34,7 +34,6 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		response.Error(c, http.StatusBadRequest, err.Error())
 		return
 	}
-
 	token, redirect, err := h.authUsecase.Login(req)
 	if err != nil {
 		response.Error(c, http.StatusUnauthorized, err.Error())
@@ -64,5 +63,5 @@ func (h *AuthHandler) Register(c *gin.Context) {
 		response.Error(c, http.StatusBadRequest, err.Error())
 		return
 	}
-	c.Redirect(http.StatusSeeOther, "/login")
+	response.Success(c, http.StatusOK, "Registrasi berhasil")
 }

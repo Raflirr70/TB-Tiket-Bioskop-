@@ -4,6 +4,23 @@ import "time"
 
 type FilmUseCase interface {
 	GetAllFilm(limit int, sort string) ([]FilmResponse, error)
+	CreateFilm(req CreateFilmRequest) (*FilmResponse, error)
+}
+
+type CreateScheduleRequest struct {
+	RoomID uint   `json:"room_id"`
+	Date   string `json:"date"` // YYYY-MM-DD
+	Time   string `json:"time"` // HH:MM
+}
+
+type CreateFilmRequest struct {
+	Name      string                  `json:"name"`
+	Synopsis  string                  `json:"synopsis"`
+	Duration  int                     `json:"duration"`
+	Price     int                     `json:"price"`
+	Status    string                  `json:"status"`
+	IrlImg    string                  `json:"irl_img"`
+	Schedules []CreateScheduleRequest `json:"schedules"`
 }
 
 // DTO

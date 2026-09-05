@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/navbar.css">
     <link rel="stylesheet" href="/static/css/footer.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@iconscout/unicons@4/css/line.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -16,7 +17,7 @@
         {{ if .nav }}
             {{ template "sidebar" . }}
         {{ end }}
-        <main class="main-content {{ if not .email }}full-width{{ end }}">
+        <main class="main-content {{ if .nav }}has-sidebar{{ end }}">
             {{ if eq .page "landing"}}
                 {{ template "landing-content" . }}
                 <script src="/static/js/landing_page.js"></script>
@@ -26,6 +27,15 @@
             {{ else if eq .page "films"}}
                 {{ template "films-content" . }}
                 <script src="/static/js/films_page.js"></script>
+            {{ else if eq .page "rooms"}}
+                {{ template "rooms-content" . }}
+                <script src="/static/js/room_page.js"></script>
+            {{ else if eq .page "manage-films"}}
+                {{ template "manage-films-content" . }}
+                <script src="/static/js/manage_films_page.js"></script>
+            {{ else if eq .page "create-film"}}
+                {{ template "create-film-content" . }}
+                <script src="/static/js/create_film_page.js"></script>
             {{ else if eq .page "dashboard"}}
                 {{ template "dashboard-content" . }}
             {{ else }}
@@ -35,7 +45,9 @@
         </main>
     </div>
     
-    {{ template "footer" . }}
+    {{ if not .nav }}
+        {{ template "footer" . }}
+    {{ end }}
     
     <script src="/static/js/app.js"></script>
 </body>

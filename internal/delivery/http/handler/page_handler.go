@@ -40,8 +40,9 @@ func (h *PageHandler) LoginPages(c *gin.Context) {
 		c.Redirect(http.StatusSeeOther, "/dashboard")
 		return
 	}
-	c.HTML(http.StatusOK, "login", gin.H{
+	c.HTML(http.StatusOK, "auth", gin.H{
 		"title": "Login BooCinS",
+		"mode":  "login",
 		"nav":   false,
 	})
 }
@@ -51,8 +52,9 @@ func (h *PageHandler) RegisterPages(c *gin.Context) {
 		c.Redirect(http.StatusSeeOther, "/dashboard")
 		return
 	}
-	c.HTML(http.StatusOK, "register", gin.H{
+	c.HTML(http.StatusOK, "auth", gin.H{
 		"title": "Register BooCinS",
+		"mode":  "register",
 		"nav":   false,
 	})
 }
@@ -65,6 +67,55 @@ func (h *PageHandler) DashboardPage(c *gin.Context) {
 		"email":     email,
 		"firstname": firstname,
 		"page":      "dashboard",
+		"nav":       true,
+	})
+}
+
+func (h *PageHandler) DashboardSection(c *gin.Context, title string) {
+	email, _ := c.Get("email")
+	firstname, _ := c.Get("firstname")
+	c.HTML(http.StatusOK, "base", gin.H{
+		"title":     title + " - BooCinS",
+		"email":     email,
+		"firstname": firstname,
+		"page":      "dashboard",
+		"nav":       true,
+		"section":   title,
+	})
+}
+
+func (h *PageHandler) RoomsPage(c *gin.Context) {
+	email, _ := c.Get("email")
+	firstname, _ := c.Get("firstname")
+	c.HTML(http.StatusOK, "base", gin.H{
+		"title":     "Kelola Rooms & Seats - BooCinS",
+		"email":     email,
+		"firstname": firstname,
+		"page":      "rooms",
+		"nav":       true,
+	})
+}
+
+func (h *PageHandler) ManageFilmsPage(c *gin.Context) {
+	email, _ := c.Get("email")
+	firstname, _ := c.Get("firstname")
+	c.HTML(http.StatusOK, "base", gin.H{
+		"title":     "Kelola Films & Schedules - BooCinS",
+		"email":     email,
+		"firstname": firstname,
+		"page":      "manage-films",
+		"nav":       true,
+	})
+}
+
+func (h *PageHandler) CreateFilmPage(c *gin.Context) {
+	email, _ := c.Get("email")
+	firstname, _ := c.Get("firstname")
+	c.HTML(http.StatusOK, "base", gin.H{
+		"title":     "Tambah Film Baru - BooCinS",
+		"email":     email,
+		"firstname": firstname,
+		"page":      "create-film",
 		"nav":       true,
 	})
 }

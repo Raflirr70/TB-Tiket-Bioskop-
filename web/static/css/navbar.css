@@ -50,3 +50,158 @@
     align-items: center;
     gap: 10px;
 }
+/* ==================== SIDEBAR ==================== */
+
+.sidebar {
+    position: fixed;
+    top: 76px;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+
+    background: #fff;
+
+    border-right: 1px solid #eeeeee;
+
+    padding: 24px 16px;
+
+    overflow-y: auto;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: #555;
+
+    border-radius: 10px;
+
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-item i {
+    font-size: 18px;
+
+    color: #9b9b9b;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #f3f0fb;
+    color: #6c3ce9;
+}
+
+.nav-item:hover i,
+.nav-item.active i {
+    color: #6c3ce9;
+}
+
+.nav-badge {
+    margin-left: auto;
+
+    padding: 2px 8px;
+
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    color: #888;
+
+    background: #efefef;
+
+    border-radius: 999px;
+}
+
+.admin-separator {
+    padding: 16px 14px 6px;
+
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #aaa;
+}
+
+.main-content {
+    margin-left: 0;
+
+    padding: 100px 24px 40px;
+
+    min-height: 100vh;
+}
+
+.main-content.has-sidebar {
+    margin-left: 260px;
+}
+
+
+/* ==================== DASHBOARD PAGE ==================== */
+
+.dash-page {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.dash-head h1 {
+    font-size: 30px;
+
+    margin-bottom: 24px;
+}
+
+.dash-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    min-height: 320px;
+
+    color: #aaa;
+
+    background: #fff;
+
+    border: 1px dashed #dcd6f0;
+    border-radius: 16px;
+}
+
+.dash-placeholder i {
+    font-size: 42px;
+
+    color: #c3b6ee;
+}
+
+.dash-placeholder p {
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .main-content.has-sidebar,
+    .main-content {
+        margin-left: 0;
+    }
+}
